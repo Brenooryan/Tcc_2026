@@ -1,0 +1,1498 @@
+{
+  "provider": "anthropic",
+  "model": "claude-sonnet-5",
+  "results": [
+    {
+      "id": "varejo_padrao",
+      "description": "Rede de varejo, 1 aba de funcionarios com nomes de coluna comuns",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Colaboradores",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 8,
+            "attempted": 8,
+            "total": 8
+          }
+        }
+      ],
+      "planResult": {
+        "pagesProposed": 4,
+        "pagesValidated": 4,
+        "chartsProposed": 12,
+        "chartsValidated": 12,
+        "validityRate": 1
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Colaboradores",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "ID_Colab",
+              "nome": "Nome_Completo",
+              "cargo": "Funcao",
+              "filial": "Loja",
+              "data_admissao": "Dt_Admissao",
+              "data_desligamento": "Dt_Desligamento",
+              "status": "Status_Atual",
+              "salario_atual": "Sal_Mensal",
+              "genero": "Sexo"
+            }
+          }
+        ]
+      },
+      "rawPlan": {
+        "is_hr_data": true,
+        "overall_note": "Base pequena e concentrada apenas em cadastro e desligamentos, sem dados de folha, recrutamento ou movimentacoes.",
+        "company_summary": "Pequena rede de lojas com doze funcionarios, três desligamentos registrados e informacoes basicas de cargo, filial e salario.",
+        "pages": [
+          {
+            "id": "visao-geral",
+            "label": "Visao Geral",
+            "icon_hint": "target",
+            "kpis": [
+              {
+                "id": "kpi1",
+                "label": "Funcionarios ativos",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Ativo"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi2",
+                "label": "Total de funcionarios",
+                "source": "funcionarios",
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi3",
+                "label": "Desligados",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Desligado"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi4",
+                "label": "Salario medio",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "salario_atual",
+                "format": "currency"
+              },
+              {
+                "id": "kpi5",
+                "label": "Tempo medio de casa",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "tempo_casa_meses",
+                "format": "number"
+              }
+            ],
+            "charts": [
+              {
+                "id": "g1",
+                "title": "Evolucao do quadro",
+                "subtitle": "Headcount mensal",
+                "chart_type": "line",
+                "special": "headcount_trend"
+              },
+              {
+                "id": "g2",
+                "title": "Funcionarios por cargo",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              }
+            ]
+          },
+          {
+            "id": "perfil-quadro",
+            "label": "Perfil do Quadro",
+            "icon_hint": "users",
+            "kpis": [],
+            "charts": [
+              {
+                "id": "g3",
+                "title": "Funcionarios por filial",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "filial"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g4",
+                "title": "Funcionarios por genero",
+                "chart_type": "pie",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              },
+              {
+                "id": "g5",
+                "title": "Salario medio por cargo",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g6",
+                "title": "Genero por cargo",
+                "subtitle": "Distribuicao cruzada",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "series_by": {
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              }
+            ]
+          },
+          {
+            "id": "remuneracao-tempo",
+            "label": "Remuneracao e Tempo de Casa",
+            "icon_hint": "dollar",
+            "kpis": [],
+            "charts": [
+              {
+                "id": "g7",
+                "title": "Salario medio por filial",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "filial"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g8",
+                "title": "Tempo de casa por cargo",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "tempo_casa_meses"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g9",
+                "title": "Salario medio por genero",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                }
+              }
+            ]
+          },
+          {
+            "id": "desligamentos",
+            "label": "Desligamentos",
+            "icon_hint": "user-minus",
+            "kpis": [],
+            "charts": [
+              {
+                "id": "g10",
+                "title": "Desligamentos ao longo do tempo",
+                "chart_type": "line",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "month",
+                  "field": "data_desligamento"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              },
+              {
+                "id": "g11",
+                "title": "Tempo de casa ao sair por filial",
+                "chart_type": "bar",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "filial"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "tempo_casa_dias"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g12",
+                "title": "Desligamentos por cargo",
+                "chart_type": "bar_horizontal",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              }
+            ]
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "consultoria_abreviada",
+      "description": "2 abas (cadastro + desligamentos), nomes de coluna abreviados",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Cadastro",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 9,
+            "attempted": 9,
+            "total": 9
+          }
+        },
+        {
+          "originalName": "Saidas",
+          "expectedRole": "desligamentos",
+          "predictedRole": "desligamentos",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 5,
+            "attempted": 5,
+            "total": 5
+          }
+        }
+      ],
+      "planResult": {
+        "pagesProposed": 3,
+        "pagesValidated": 3,
+        "chartsProposed": 11,
+        "chartsValidated": 11,
+        "validityRate": 1
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Cadastro",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Cod",
+              "nome": "NomeCompleto",
+              "area": "Depto",
+              "cargo": "Cargo",
+              "data_admissao": "DtAdm",
+              "data_desligamento": "DtDeslig",
+              "status": "Sit",
+              "salario_atual": "SalAtual",
+              "genero": "Genero"
+            }
+          },
+          {
+            "original_name": "Saidas",
+            "role": "desligamentos",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Cod_Func",
+              "data_desligamento": "DataSaida",
+              "tipo_desligamento": "TipoSaida",
+              "motivo_detalhado": "Motivo",
+              "iniciativa": "Iniciativa"
+            }
+          }
+        ]
+      },
+      "rawPlan": {
+        "is_hr_data": true,
+        "overall_note": "Base pequena (10 funcionarios), apenas tabelas funcionarios e desligamentos possuem dados; demais tabelas estao vazias.",
+        "company_summary": "Empresa pequena com tres areas (Consultoria, Administrativo e Comercial), quadro misto por genero e baixo volume de desligamentos registrados.",
+        "pages": [
+          {
+            "id": "visao-geral",
+            "label": "Visao Geral",
+            "icon_hint": "target",
+            "kpis": [
+              {
+                "id": "kpi1",
+                "label": "Funcionarios ativos",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Ativo"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi2",
+                "label": "Funcionarios desligados",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Desligado"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi3",
+                "label": "Salario medio",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "salario_atual",
+                "format": "currency"
+              },
+              {
+                "id": "kpi4",
+                "label": "Tempo medio de casa (meses)",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "tempo_casa_meses",
+                "format": "number"
+              },
+              {
+                "id": "kpi5",
+                "label": "Total de desligamentos",
+                "source": "desligamentos",
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              }
+            ],
+            "charts": [
+              {
+                "id": "g1",
+                "title": "Evolucao do headcount",
+                "subtitle": "Quadro ativo ao longo do tempo",
+                "chart_type": "line",
+                "special": "headcount_trend"
+              },
+              {
+                "id": "g2",
+                "title": "Funcionarios por area",
+                "subtitle": "Distribuicao atual",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Ativo"
+                  }
+                ],
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              }
+            ]
+          },
+          {
+            "id": "perfil-quadro",
+            "label": "Perfil do Quadro",
+            "icon_hint": "users",
+            "charts": [
+              {
+                "id": "g3",
+                "title": "Funcionarios por cargo",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g4",
+                "title": "Funcionarios por genero",
+                "chart_type": "pie",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              },
+              {
+                "id": "g5",
+                "title": "Salario medio por area",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g6",
+                "title": "Salario medio por genero",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                }
+              },
+              {
+                "id": "g7",
+                "title": "Genero por area",
+                "subtitle": "Composicao cruzada",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "series_by": {
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              }
+            ]
+          },
+          {
+            "id": "turnover-desligamentos",
+            "label": "Turnover e Desligamentos",
+            "icon_hint": "user-minus",
+            "charts": [
+              {
+                "id": "g8",
+                "title": "Taxa de turnover mensal",
+                "chart_type": "line",
+                "special": "turnover_trend"
+              },
+              {
+                "id": "g9",
+                "title": "Desligamentos por tipo",
+                "chart_type": "bar",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "tipo_desligamento"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              },
+              {
+                "id": "g10",
+                "title": "Desligamentos por motivo",
+                "chart_type": "bar_horizontal",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "motivo_detalhado"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              },
+              {
+                "id": "g11",
+                "title": "Desligamentos por iniciativa",
+                "chart_type": "pie",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "iniciativa"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "startup_combinada",
+      "description": "Coluna cargo+nome combinada, idade direta ao inves de data de nascimento",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Time",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 8,
+            "attempted": 8,
+            "total": 8
+          }
+        }
+      ],
+      "planResult": {
+        "pagesProposed": 4,
+        "pagesValidated": 4,
+        "chartsProposed": 12,
+        "chartsValidated": 12,
+        "validityRate": 1
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Time",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Matricula",
+              "nome": "CargoNome",
+              "cargo": "CargoNome",
+              "area": "Setor",
+              "data_admissao": "Contratacao",
+              "data_desligamento": "Desligamento",
+              "status": "SituacaoAtual",
+              "salario_atual": "Remuneracao",
+              "genero": "Genero",
+              "idade": "Idade"
+            }
+          }
+        ]
+      },
+      "rawPlan": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "company_summary": "Uma empresa pequena, de dez funcionarios, com dados basicos de cargo, area, genero e salario, mas poucos registros de desligamento.",
+        "pages": [
+          {
+            "id": "visao-geral",
+            "label": "Visao Geral",
+            "icon_hint": "target",
+            "kpis": [
+              {
+                "id": "kpi1",
+                "label": "Funcionarios ativos",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Ativo"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi2",
+                "label": "Total de desligamentos",
+                "source": "desligamentos",
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi3",
+                "label": "Salario medio atual",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "salario_atual",
+                "format": "currency"
+              },
+              {
+                "id": "kpi4",
+                "label": "Tempo medio de casa (meses)",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "tempo_casa_meses",
+                "format": "number"
+              }
+            ],
+            "charts": [
+              {
+                "id": "g1",
+                "title": "Evolucao do quadro de funcionarios",
+                "subtitle": "Headcount mensal",
+                "chart_type": "line",
+                "special": "headcount_trend"
+              },
+              {
+                "id": "g2",
+                "title": "Funcionarios por area",
+                "subtitle": "Distribuicao atual",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Ativo"
+                  }
+                ],
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc",
+                "limit": 10
+              }
+            ]
+          },
+          {
+            "id": "perfil-equipe",
+            "label": "Perfil da Equipe",
+            "icon_hint": "users",
+            "charts": [
+              {
+                "id": "g3",
+                "title": "Funcionarios por cargo",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc",
+                "limit": 10
+              },
+              {
+                "id": "g4",
+                "title": "Distribuicao por genero",
+                "chart_type": "pie",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g5",
+                "title": "Genero por area",
+                "subtitle": "Composicao das equipes",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "series_by": {
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g6",
+                "title": "Tempo medio de casa por area",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "tempo_casa_meses"
+                },
+                "sort": "value_desc"
+              }
+            ]
+          },
+          {
+            "id": "remuneracao",
+            "label": "Remuneracao",
+            "icon_hint": "dollar",
+            "charts": [
+              {
+                "id": "g7",
+                "title": "Salario medio por area",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g8",
+                "title": "Salario medio por cargo",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "cargo"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                },
+                "sort": "value_desc",
+                "limit": 10
+              },
+              {
+                "id": "g9",
+                "title": "Salario medio por genero",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "genero"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                },
+                "sort": "value_desc"
+              }
+            ]
+          },
+          {
+            "id": "turnover-saidas",
+            "label": "Turnover e Saidas",
+            "icon_hint": "user-minus",
+            "charts": [
+              {
+                "id": "g10",
+                "title": "Taxa de turnover mensal",
+                "chart_type": "line",
+                "special": "turnover_trend"
+              },
+              {
+                "id": "g11",
+                "title": "Desligamentos por area",
+                "chart_type": "bar",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g12",
+                "title": "Tempo de casa dos desligados por area",
+                "chart_type": "bar",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "tempo_casa_dias"
+                },
+                "sort": "value_desc"
+              }
+            ]
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "industria_minima",
+      "description": "Base minima viavel: so ID, nome, setor e data de entrada",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Pessoal",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 4,
+            "attempted": 4,
+            "total": 4
+          }
+        }
+      ],
+      "planResult": {
+        "pagesProposed": 2,
+        "pagesValidated": 2,
+        "chartsProposed": 5,
+        "chartsValidated": 5,
+        "validityRate": 1
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Pessoal",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "ID",
+              "nome": "Nome",
+              "area": "Setor",
+              "data_admissao": "DataEntrada"
+            }
+          }
+        ]
+      },
+      "rawPlan": {
+        "is_hr_data": true,
+        "overall_note": "Base muito enxuta, com apenas a tabela de funcionarios preenchida e a maioria dos campos categoricos marcados como Nao informado. So area, tempo de casa e data de admissao permitem analises uteis. Demais temas de RH (desligamento, folha, recrutamento, movimentacoes) nao possuem dados.",
+        "company_summary": "Pequena empresa industrial com 8 funcionarios ativos distribuidos entre producao, qualidade, logistica e manutencao, sem dados disponiveis sobre desligamentos, folha ou recrutamento.",
+        "pages": [
+          {
+            "id": "visao-geral",
+            "label": "Visao Geral",
+            "icon_hint": "target",
+            "kpis": [
+              {
+                "id": "kpi1",
+                "label": "Funcionarios ativos",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Ativo"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi2",
+                "label": "Tempo medio de casa (meses)",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "tempo_casa_meses",
+                "format": "number"
+              },
+              {
+                "id": "kpi3",
+                "label": "Funcionarios em Producao",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "area",
+                    "op": "eq",
+                    "value": "Producao"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi4",
+                "label": "Funcionarios em Manutencao",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "area",
+                    "op": "eq",
+                    "value": "Manutencao"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              }
+            ],
+            "charts": [
+              {
+                "id": "g1",
+                "title": "Evolucao do quadro",
+                "subtitle": "Headcount ao longo do tempo",
+                "chart_type": "line",
+                "special": "headcount_trend"
+              },
+              {
+                "id": "g2",
+                "title": "Funcionarios por area",
+                "subtitle": "Distribuicao atual",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc",
+                "limit": 10
+              }
+            ]
+          },
+          {
+            "id": "perfil-quadro",
+            "label": "Perfil do Quadro",
+            "icon_hint": "users",
+            "charts": [
+              {
+                "id": "g3",
+                "title": "Distribuicao por area",
+                "subtitle": "Participacao de cada area",
+                "chart_type": "pie",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g4",
+                "title": "Tempo medio de casa por area",
+                "subtitle": "Em meses",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "tempo_casa_meses"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "g5",
+                "title": "Admissoes ao longo do tempo",
+                "subtitle": "Contagem mensal",
+                "chart_type": "line",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "month",
+                  "field": "data_admissao"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "somente_folha",
+      "description": "Base contendo apenas folha de pagamento, sem cadastro de funcionarios",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Folha_Mensal",
+          "expectedRole": "folha",
+          "predictedRole": "folha",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 6,
+            "attempted": 6,
+            "total": 6
+          }
+        }
+      ],
+      "planResult": null,
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Folha_Mensal",
+            "role": "folha",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Matricula",
+              "competencia": "Mes",
+              "salario_base": "SalarioBase",
+              "beneficios_vr_va_saude": "Beneficios",
+              "encargos_inss_fgts": "Encargos",
+              "custo_total_ctc": "CustoTotal"
+            }
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "nao_rh_vendas",
+      "description": "Planilha de controle de vendas de produtos — nao deve ser reconhecida como RH",
+      "isHrDataExpected": false,
+      "isHrDataPredicted": false,
+      "isHrDataCorrect": true,
+      "sheetResults": [],
+      "planResult": null,
+      "rawMapping": {
+        "is_hr_data": false,
+        "overall_note": "A planilha contem dados de vendas/pedidos (produtos, quantidade, preco, cliente), sem nenhuma informacao relacionada a funcionarios, folha, recrutamento ou RH em geral.",
+        "sheets": [
+          {
+            "original_name": "Pedidos",
+            "role": "unknown",
+            "confidence": "high",
+            "column_map": {}
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "dividido_por_ano",
+      "description": "2 abas com estrutura identica representando anos diferentes (2019, 2020)",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "2019",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 7,
+            "attempted": 7,
+            "total": 7
+          }
+        },
+        {
+          "originalName": "2020",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 7,
+            "attempted": 7,
+            "total": 7
+          }
+        }
+      ],
+      "planResult": {
+        "pagesProposed": 3,
+        "pagesValidated": 3,
+        "chartsProposed": 9,
+        "chartsValidated": 9,
+        "validityRate": 1
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "2019",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Codigo",
+              "nome": "Nome",
+              "data_admissao": "Admissao",
+              "data_desligamento": "Desligamento",
+              "status": "Status",
+              "area": "Area",
+              "salario_atual": "Salario"
+            }
+          },
+          {
+            "original_name": "2020",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Codigo",
+              "nome": "Nome",
+              "data_admissao": "Admissao",
+              "data_desligamento": "Desligamento",
+              "status": "Status",
+              "area": "Area",
+              "salario_atual": "Salario"
+            }
+          }
+        ]
+      },
+      "rawPlan": {
+        "is_hr_data": true,
+        "overall_note": "Muitos campos demograficos e de cargo nao foram informados, limitando a granularidade de algumas analises.",
+        "company_summary": "Empresa pequena com quadro concentrado em tres areas, Vendas, TI e RH, e poucos desligamentos registrados.",
+        "pages": [
+          {
+            "id": "visao-geral",
+            "label": "Visao Geral",
+            "icon_hint": "target",
+            "kpis": [
+              {
+                "id": "kpi1",
+                "label": "Funcionarios ativos",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Ativo"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi2",
+                "label": "Funcionarios desligados",
+                "source": "funcionarios",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "eq",
+                    "value": "Desligado"
+                  }
+                ],
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              },
+              {
+                "id": "kpi3",
+                "label": "Salario medio",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "salario_atual",
+                "format": "currency"
+              },
+              {
+                "id": "kpi4",
+                "label": "Tempo medio de casa",
+                "source": "funcionarios",
+                "agg": "avg",
+                "field": "tempo_casa_meses",
+                "format": "number"
+              },
+              {
+                "id": "kpi5",
+                "label": "Total de funcionarios",
+                "source": "funcionarios",
+                "agg": "count",
+                "field": null,
+                "format": "number"
+              }
+            ],
+            "charts": [
+              {
+                "id": "g1",
+                "title": "Evolucao do headcount",
+                "subtitle": "Ativos por mes",
+                "chart_type": "line",
+                "special": "headcount_trend"
+              },
+              {
+                "id": "g2",
+                "title": "Turnover mensal",
+                "subtitle": "Taxa de saida percentual",
+                "chart_type": "line",
+                "special": "turnover_trend"
+              }
+            ]
+          },
+          {
+            "id": "quadro-area",
+            "label": "Quadro por Area",
+            "icon_hint": "users",
+            "charts": [
+              {
+                "id": "c1",
+                "title": "Funcionarios por area",
+                "chart_type": "bar_horizontal",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "c2",
+                "title": "Funcionarios por status",
+                "chart_type": "pie",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "status"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              },
+              {
+                "id": "c3",
+                "title": "Salario medio por area",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "salario_atual"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "c4",
+                "title": "Tempo de casa medio por area",
+                "chart_type": "bar",
+                "source": "funcionarios",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "tempo_casa_meses"
+                },
+                "sort": "value_desc"
+              }
+            ]
+          },
+          {
+            "id": "desligamentos",
+            "label": "Desligamentos",
+            "icon_hint": "user-minus",
+            "charts": [
+              {
+                "id": "d1",
+                "title": "Desligamentos por mes",
+                "chart_type": "bar",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "month",
+                  "field": "data_desligamento"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              },
+              {
+                "id": "d2",
+                "title": "Tempo ate desligamento por area",
+                "subtitle": "Media em dias",
+                "chart_type": "bar_horizontal",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "avg",
+                  "field": "tempo_casa_dias"
+                },
+                "sort": "value_desc"
+              },
+              {
+                "id": "d3",
+                "title": "Desligamentos por area",
+                "chart_type": "pie",
+                "source": "desligamentos",
+                "group_by": {
+                  "kind": "category",
+                  "field": "area"
+                },
+                "metric": {
+                  "agg": "count",
+                  "field": null
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "error": null
+    }
+  ],
+  "aggregate": {
+    "totalFixtures": 7,
+    "hrFixturesCount": 6,
+    "negFixturesCount": 1,
+    "isHrAccuracy": 1,
+    "roleAccuracy": 1,
+    "avgRecall": 1,
+    "avgPrecision": 1,
+    "avgValidityRate": 1,
+    "totalSheetsEvaluated": 8,
+    "totalPlansEvaluated": 5
+  }
+}

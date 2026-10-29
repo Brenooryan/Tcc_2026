@@ -1,0 +1,376 @@
+{
+  "provider": "anthropic",
+  "model": "claude-sonnet-5",
+  "results": [
+    {
+      "id": "varejo_padrao",
+      "description": "Rede de varejo, 1 aba de funcionarios com nomes de coluna comuns",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Colaboradores",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 8,
+            "attempted": 8,
+            "total": 8
+          }
+        }
+      ],
+      "planResult": {
+        "error": "WRITING_STYLE_RULE is not defined"
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Colaboradores",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "ID_Colab",
+              "nome": "Nome_Completo",
+              "filial": "Loja",
+              "cargo": "Funcao",
+              "data_admissao": "Dt_Admissao",
+              "data_desligamento": "Dt_Desligamento",
+              "status": "Status_Atual",
+              "salario_atual": "Sal_Mensal",
+              "genero": "Sexo"
+            }
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "consultoria_abreviada",
+      "description": "2 abas (cadastro + desligamentos), nomes de coluna abreviados",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Cadastro",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 9,
+            "attempted": 9,
+            "total": 9
+          }
+        },
+        {
+          "originalName": "Saidas",
+          "expectedRole": "desligamentos",
+          "predictedRole": "desligamentos",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 5,
+            "attempted": 5,
+            "total": 5
+          }
+        }
+      ],
+      "planResult": {
+        "error": "WRITING_STYLE_RULE is not defined"
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Cadastro",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Cod",
+              "nome": "NomeCompleto",
+              "area": "Depto",
+              "cargo": "Cargo",
+              "data_admissao": "DtAdm",
+              "data_desligamento": "DtDeslig",
+              "status": "Sit",
+              "salario_atual": "SalAtual",
+              "genero": "Genero"
+            }
+          },
+          {
+            "original_name": "Saidas",
+            "role": "desligamentos",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Cod_Func",
+              "data_desligamento": "DataSaida",
+              "tipo_desligamento": "TipoSaida",
+              "motivo_detalhado": "Motivo",
+              "iniciativa": "Iniciativa"
+            }
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "startup_combinada",
+      "description": "Coluna cargo+nome combinada, idade direta ao inves de data de nascimento",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Time",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 8,
+            "attempted": 8,
+            "total": 8
+          }
+        }
+      ],
+      "planResult": {
+        "error": "WRITING_STYLE_RULE is not defined"
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Time",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Matricula",
+              "nome": "CargoNome",
+              "cargo": "CargoNome",
+              "area": "Setor",
+              "data_admissao": "Contratacao",
+              "data_desligamento": "Desligamento",
+              "status": "SituacaoAtual",
+              "salario_atual": "Remuneracao",
+              "genero": "Genero",
+              "idade": "Idade"
+            }
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "industria_minima",
+      "description": "Base minima viavel: so ID, nome, setor e data de entrada",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Pessoal",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 4,
+            "attempted": 4,
+            "total": 4
+          }
+        }
+      ],
+      "planResult": {
+        "error": "WRITING_STYLE_RULE is not defined"
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Pessoal",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "ID",
+              "nome": "Nome",
+              "area": "Setor",
+              "data_admissao": "DataEntrada"
+            }
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "somente_folha",
+      "description": "Base contendo apenas folha de pagamento, sem cadastro de funcionarios",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "Folha_Mensal",
+          "expectedRole": "folha",
+          "predictedRole": "folha",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 6,
+            "attempted": 6,
+            "total": 6
+          }
+        }
+      ],
+      "planResult": null,
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "Folha_Mensal",
+            "role": "folha",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Matricula",
+              "competencia": "Mes",
+              "salario_base": "SalarioBase",
+              "beneficios_vr_va_saude": "Beneficios",
+              "encargos_inss_fgts": "Encargos",
+              "custo_total_ctc": "CustoTotal"
+            }
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "nao_rh_vendas",
+      "description": "Planilha de controle de vendas de produtos — nao deve ser reconhecida como RH",
+      "isHrDataExpected": false,
+      "isHrDataPredicted": false,
+      "isHrDataCorrect": true,
+      "sheetResults": [],
+      "planResult": null,
+      "rawMapping": {
+        "is_hr_data": false,
+        "overall_note": "A planilha contem dados de vendas/pedidos (produtos, quantidade, preco, cliente), sem nenhuma relacao com dados de RH.",
+        "sheets": [
+          {
+            "original_name": "Pedidos",
+            "role": "unknown",
+            "confidence": "high",
+            "column_map": {}
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    },
+    {
+      "id": "dividido_por_ano",
+      "description": "2 abas com estrutura identica representando anos diferentes (2019, 2020)",
+      "isHrDataExpected": true,
+      "isHrDataPredicted": true,
+      "isHrDataCorrect": true,
+      "sheetResults": [
+        {
+          "originalName": "2019",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 7,
+            "attempted": 7,
+            "total": 7
+          }
+        },
+        {
+          "originalName": "2020",
+          "expectedRole": "funcionarios",
+          "predictedRole": "funcionarios",
+          "roleCorrect": true,
+          "columnScore": {
+            "recall": 1,
+            "precision": 1,
+            "correct": 7,
+            "attempted": 7,
+            "total": 7
+          }
+        }
+      ],
+      "planResult": {
+        "error": "WRITING_STYLE_RULE is not defined"
+      },
+      "rawMapping": {
+        "is_hr_data": true,
+        "overall_note": "",
+        "sheets": [
+          {
+            "original_name": "2019",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Codigo",
+              "nome": "Nome",
+              "area": "Area",
+              "data_admissao": "Admissao",
+              "data_desligamento": "Desligamento",
+              "status": "Status",
+              "salario_atual": "Salario"
+            }
+          },
+          {
+            "original_name": "2020",
+            "role": "funcionarios",
+            "confidence": "high",
+            "column_map": {
+              "matricula": "Codigo",
+              "nome": "Nome",
+              "area": "Area",
+              "data_admissao": "Admissao",
+              "data_desligamento": "Desligamento",
+              "status": "Status",
+              "salario_atual": "Salario"
+            }
+          }
+        ]
+      },
+      "rawPlan": null,
+      "error": null
+    }
+  ],
+  "aggregate": {
+    "totalFixtures": 7,
+    "hrFixturesCount": 6,
+    "negFixturesCount": 1,
+    "isHrAccuracy": 1,
+    "roleAccuracy": 1,
+    "avgRecall": 1,
+    "avgPrecision": 1,
+    "avgValidityRate": null,
+    "totalSheetsEvaluated": 8,
+    "totalPlansEvaluated": 0
+  }
+}
